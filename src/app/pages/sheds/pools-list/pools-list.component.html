@@ -1,0 +1,128 @@
+<div class="card">
+    <div class="card-body d-flex pt-0 pb-0">
+        <div class="_title d-flex">
+            <div class="_icon">
+                <i class="material-icons">home</i>
+            </div>
+            <span>
+                <a (click)="onBack()" href="javascript:void(0)">{{shed!==null ? shed.name : 'Galpón'}}</a> > Pozas
+            </span>
+        </div>
+        <button (click)="openModal()" class="btn btn-round btn-add ms-auto d-flex justify-content-center">
+            <i class="material-icons">add_circle_outline</i>
+            <span class="ps-2 mt-1">Crear poza</span>
+        </button>
+    </div>
+</div>
+
+<ul class="nav nav-tabs mb-3"
+    id="pills-tab"
+    role="tablist">
+
+    <li class="nav-item"
+        *ngIf="user!==null ? user.accessLifeCycle.active : true"
+        (click)="onChangeActive()"
+        role="presentation">
+        <a class="nav-link px-5"
+           [ngClass]="{'active': filter}"
+           id="pills-home-tab"
+           data-bs-toggle="pill"
+           href="#pills-home"
+           role="tab"
+           aria-controls="pills-home"
+           aria-selected="true">Activos</a>
+    </li>
+
+    <li class="nav-item"
+        *ngIf="user!==null ? user.accessLifeCycle.inactive : false"
+        (click)="onChangeActive()"
+        role="presentation">
+        <a class="nav-link px-5"
+           [ngClass]="{'active': !filter}"
+           id="pills-profile-tab"
+           data-bs-toggle="pill"
+           href="#pills-profile"
+           role="tab"
+           aria-controls="pills-profile"
+           aria-selected="false">Inactivos</a>
+    </li>
+
+</ul>
+
+<p *ngIf="loading" class="text-center">Cargando elementos ...</p>
+
+<pagination-controls class="text-center"
+                     [previousLabel]="'Anterior'"
+                     [nextLabel]="'Siguiente'"
+                     (pageChange)="pageChanged($event)">
+</pagination-controls>
+
+
+<div class="tab-content">
+
+    <div class="tab-pane fade active show"
+         id="pills-home"
+         role="tabpanel"
+         aria-labelledby="pills-home-tab">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                        <tr class="text-center">
+                            <th scope="col">Código</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Fase</th>
+                            <th scope="col">Población Total</th>
+                            <th scope="col">Machos</th>
+                            <th scope="col">Hembras</th>
+                            <th scope="col">Crias</th>
+                            <th scope="col">Observaciones</th>
+                            <th scope="col" class="text-right">Operaciones</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        <tr *ngFor="let pool of poolsPage.poolList | paginate: {itemsPerPage: perPage,currentPage: page,totalItems: poolsPage.totalNumPools}; let idx = index">
+                            <td scope="row">{{ pool.code }}</td>
+                            <td>{{ pool.type }}</td>
+                            <td>{{ pool.phase }}</td>
+                            <td>{{ pool.total_population }}</td>
+                            <td>{{ pool.population | cuyGenre: 'macho' }}</td>
+                            <td>{{ pool.population | cuyGenre: 'hembra' }}</td>
+                            <td>{{ pool.population | cuyGenre: 'cria' }}</td>
+                            <td>{{ pool.description }}</td>
+                            <td class="text-right">
+                                <button type="button" title="Ver cuyes"
+                                        (click)="goToCuyList(pool)"
+                                        class="btn btn-icon btn-icon-material btn-info ms-2">
+                                    <span class="material-icons">visibility</span>
+                                </button>
+                                <button type="button" title="Editar poza"
+                                        (click)="openModal(pool)"
+                                        class="btn btn-icon btn-icon-material btn-edit ms-2">
+                                    <span class="material-icons">create</span>
+                                </button>
+                                <button type="button" title="Desactivar poza"
+                                        (click)="openChangeStatusModal(pool)"
+                                        class="btn btn-icon btn-icon-material btn-deactivate ms-2">
+                                    <span class="material-icons">signal_cellular_no_sim</span>
+                                </button>
+                                <button type="button" title="Eliminar poza"
+                                        *ngIf="!filter"
+                                        (click)="openRemovePoolModal(pool)"
+                                        class="btn btn-icon btn-icon-material btn-danger ms-2">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

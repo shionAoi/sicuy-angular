@@ -1,0 +1,15 @@
+<ul class="pagination" *ngIf="_pages.length">
+    <li class="page-item">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+    </li>
+
+    <li *ngFor="let item of _pages; let i = index"
+        [ngClass]="{'active': this._currentPage === i}"
+        class="page-item">
+        <a class="page-link" (click)="setPage(i)">{{ i + 1 }}</a>
+    </li>
+
+    <li class="page-item">
+        <a class="page-link" href="#">Siguiente</a>
+    </li>
+</ul>

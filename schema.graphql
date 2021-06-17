@@ -1,0 +1,846 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Access {
+    active: Boolean
+    inactive: Boolean
+}
+
+type AuthData {
+    token: String!
+    tokenExpiration: String!
+    token_refresh: String!
+    user: User
+}
+
+"Cuy type"
+type Cuy {
+    "ID of cuy"
+    _id: ID
+    "Active or Inactive cuy"
+    active: Boolean
+    "Birthday of cuy"
+    birthday_date: DateTime
+    "Color of cuy"
+    color: String
+    "Date of creation in database"
+    created_date: DateTime
+    "Photo of the last weight measurement"
+    current_photo: String
+    "Last weight measurement"
+    current_weight: Float
+    "Death of cuy"
+    death: Death
+    "Description of cuy"
+    description: String
+    "Earring of cuy"
+    earring: String
+    "Genre of cuy"
+    genre: String
+    "Observation of cuy"
+    observation: String
+    "Race of cuy"
+    race: String
+    "Saca of cuy"
+    saca: Saca
+    "Last date of update in database"
+    updated_date: DateTime
+    "All weight measurements"
+    weights: [Weight]
+}
+
+type CuyPagination {
+    cuyList: [Cuy]
+    totalNumCuys: Int
+}
+
+type CuyPaginationPool {
+    cuyList: [Cuy]
+    totalNumCuys: Int
+}
+
+type CuyReport {
+    _id: ID
+    birthday_date: DateTime
+    current_photo: String
+    current_weight: Float
+    death: Death
+    earring: String
+    genre: String
+    pool_code: String
+    pool_phase: String
+    race: String
+    saca: Saca
+    shed_code: String
+    shed_name: String
+}
+
+type CuyReportPagination {
+    "List of all cuys"
+    cuyList: [CuyReport]
+    "Total number of cuys"
+    totalNumCuys: Int
+}
+
+type Cuys {
+    cuyList: [Cuy]
+    totalNumCuys: Int
+}
+
+type Death {
+    certified_by: UserReports
+    date: DateTime
+    reason: String
+    reference_doc: String
+    user: UserReports
+}
+
+"Mobilization type"
+type Mobilization {
+    "ID of mobilization"
+    _id: ID
+    "date of creation"
+    created_date: DateTime
+    "cuy mobilized"
+    cuy: Cuy
+    "Date when cuy was mobilized"
+    date: DateTime
+    "Pool of destine"
+    destination: Pool
+    "Pool of origin"
+    origin: Pool
+    "Reason for mobilization"
+    reason: String
+    "Url of document that proves the mobilization"
+    reference_doc: String
+    "last date of update in document"
+    updated_date: DateTime
+    "user that made mobilization"
+    user: UserReports
+}
+
+"MobilizationPagination type"
+type MobilizationPagination {
+    "List of all mobilizations"
+    mobilList: [Mobilization]
+    "total number of mobilizations"
+    totalNumMobil: Int
+}
+
+"MobilizationReport type"
+type MobilizationReport {
+    "ID of mobilization"
+    _id: ID
+    "Date of creation of mobilization"
+    created_date: DateTime
+    "State of cuy active or inactive"
+    cuy_active: Boolean
+    "Death object of cuy"
+    cuy_death: Death
+    "Earring of cuy"
+    cuy_earring: String
+    "Genre of cuy"
+    cuy_genre: String
+    "Race of cuy"
+    cuy_race: String
+    "Saca object of cuy"
+    cuy_saca: Saca
+    "Date of mobilization"
+    date: DateTime
+    "Code of destination pool of mobilization"
+    destination_code: String
+    "Phase of destination pool of mobilization"
+    destination_phase: String
+    "Code of origin pool of mobilization"
+    origin_code: String
+    "Phase of origin pool of mobilization"
+    origin_phase: String
+    "Reason of mobilization"
+    reason: String
+    "Reference path document of mobilization"
+    reference_doc: String
+    "Date of update of mobilization"
+    updated_date: DateTime
+    "User of mobilization"
+    user: UserReports
+}
+
+"MobilizationReportPagination type"
+type MobilizationReportPagination {
+    "List of all mobilizations"
+    mobilizationList: [MobilizationReport]
+    "total number of mobilizations"
+    totalNumMobilizations: Int
+}
+
+type Mutation {
+    "activateCuy mutation activates a cuy by its ID"
+    activateCuy(
+        "ID of cuy to activate"
+        idCuy: ID!
+    ): Boolean
+    "activatePool Mutation activates a pool by its ID"
+    activatePool(
+        "ID of pool to activate"
+        idPool: ID!
+    ): Boolean
+    "activateShed Mutation activates shed by its ID"
+    activateShed(idShed: ID!): Boolean
+    "addCuy mutation adds a cuy"
+    addCuy(
+        "cuy to add"
+        cuy: CuyInput!
+    ): Cuy
+    "addMobilization mutation adds a mobilization"
+    addMobilization(
+        "mobilization of cuy"
+        mobilization: MobilizationInput!
+    ): Mobilization
+    "addOperationToRole mutation adds a operation to role"
+    addOperationToRole(
+        "ID of operation to add"
+        idOperation: ID!,
+        "ID of role where to add operation"
+        idRole: ID!
+    ): Boolean
+    "addPool Mutation adds a pool"
+    addPool(
+        "pool to add"
+        pool: PoolInput!
+    ): Pool
+    "addRole mutation adds a role"
+    addRole(role: RoleInput!): Role
+    "addRoleToUser mutation to add role to a user"
+    addRoleToUser(idRole: ID!, idUser: ID!): Boolean
+    "addShed Mutation adds a shed"
+    addShed(shed: ShedInput!): Shed
+    "addWeightToCuy mutation adds weight to cuy"
+    addWeightToCuy(
+        "ID of cuy"
+        idCuy: ID!,
+        "weight to add"
+        weight: WeightInput!
+    ): Boolean
+    "deactivateCuy mutation deactivates a cuy by its ID"
+    deactivateCuy(
+        "ID of cuy to deactivate"
+        idCuy: ID!
+    ): Boolean
+    "deactivatePool Mutation deactivates a pool by its ID"
+    deactivatePool(
+        "ID of pool to deactivate"
+        idPool: ID!
+    ): Boolean
+    "deactivateShed Mutation deactivates shed by its ID"
+    deactivateShed(idShed: ID!): Boolean
+    "deleteCuy mutation deletes a cuy by its ID"
+    deleteCuy(
+        "ID of cuy to delete"
+        idCuy: ID!
+    ): Boolean
+    "deleteOperationOfRole mutation deletes a operation from role"
+    deleteOperationOfRole(
+        "ID of operation to delete"
+        idOperation: ID!,
+        "ID of role where to delete operation"
+        idRole: ID!
+    ): Boolean
+    "deletePool Mutation deletes pool by its ID"
+    deletePool(
+        "ID of pool to delete"
+        idPool: ID!
+    ): Boolean
+    "deleteRole mutation deletes a role"
+    deleteRole(idRole: ID!): Boolean
+    "deleteRoleOfUser mutation to delete role from a user"
+    deleteRoleOfUser(idRole: ID!, idUser: ID!): Boolean
+    "deleteShed Mutation deletes shed by its ID"
+    deleteShed(idShed: ID!): Boolean
+    "deleteUser mutation to delete user"
+    deleteUser(idUser: ID!): Boolean
+    "login mutation to login in system"
+    login(
+        "email of user"
+        email: String!,
+        "password of user"
+        password: String!
+    ): AuthData
+    "registerDeathCuy mutation to add death cuy"
+    registerDeathCuy(
+        "Death input of cuy"
+        death: DeathInput!,
+        "ID of cuy"
+        idCuy: ID!
+    ): Boolean
+    "registerSacaCuy mutation to add saca of cuy"
+    registerSacaCuy(
+        "ID of cuy"
+        idCuy: ID!,
+        "Saca input of cuy"
+        saca: SacaInput!
+    ): Boolean
+    removeDeathCuy(
+        "ID of cuy"
+        idCuy: ID!
+    ): Boolean
+    "removeSacaCuy mutation to remove saca of cuy"
+    removeSacaCuy(
+        "ID of Cuy"
+        idCuy: ID!
+    ): Boolean
+    "removeWeightOfCuy mutation to remove weight of cuy"
+    removeWeightOfCuy(
+        "ID of cuy"
+        idCuy: ID!,
+        "ID of weight in cuy"
+        idWeight: ID!
+    ): Boolean
+    "resetPasswordOfUser mutation to reset password of user"
+    resetPasswordOfUser(newPassword: String!, oldPassword: String!): Boolean
+    "signup mutation to add user"
+    signup(user: UserInput!): User
+    "updateAccessOfUser mutation to grant access to user for active or inactive objects"
+    updateAccessOfUser(access: AccessUpdate!, idUser: ID!): Boolean
+    "updateCuy mutation updates cuy by its ID"
+    updateCuy(
+        "ID of cuy"
+        idCuy: ID!,
+        "object with fields to update"
+        update: CuyUpdate!
+    ): Cuy
+    "updateDeathOfCuy mutation to update death of cuy"
+    updateDeathOfCuy(
+        "Death update of cuy"
+        death: DeathUpdate!,
+        "ID of cuy"
+        idCuy: ID!
+    ): Boolean
+    "updateMobilization mutation updates a mobilization"
+    updateMobilization(
+        "ID of mobilization"
+        idMobilization: ID!,
+        "update input"
+        update: MobilizationUpdate!
+    ): Mobilization
+    "updatePool Mutation updates a pool by its ID"
+    updatePool(
+        "ID of pool"
+        idPool: ID!,
+        "object with fields to update"
+        update: PoolUpdate!
+    ): Pool
+    "updateRole mutation updates a role"
+    updateRole(
+        "ID of role to be updated"
+        idRole: ID!,
+        "Object with params to update"
+        role: RoleUpdate!
+    ): Role
+    "updateSacaCuy mutation to update saca of cuy"
+    updateSacaCuy(
+        "ID of cuy"
+        idCuy: ID!,
+        "Saca input of cuy"
+        saca: SacaUpdate!
+    ): Boolean
+    "updateShed Mutation updates a shed by its ID"
+    updateShed(
+        "Id of shed"
+        idShed: ID!,
+        "Object with fields to update"
+        update: ShedUpdate!
+    ): Shed
+    "updateUser mutation to update user"
+    updateUser(idUser: ID!, user: UserUpdate!): User
+    "updateWeightOfCuy mutation to update weight of cuy"
+    updateWeightOfCuy(
+        "ID of cuy"
+        idCuy: ID!,
+        "ID of weight in cuy"
+        idWeight: ID!,
+        "update of weight"
+        update: WeightUpdate!
+    ): Boolean
+}
+
+type Operation {
+    _id: ID
+    description: String
+    name: String
+    type: Int
+}
+
+type Pool {
+    _id: ID
+    active: Boolean
+    code: String
+    created_date: DateTime
+    cuys(filter: Boolean!, limit: Int, skip: Int): CuyPaginationPool
+    description: String
+    phase: String
+    population: [Population]
+    total_population: Int
+    type: String
+    updated_date: DateTime
+}
+
+type PoolPagination {
+    poolList: [Pool]
+    totalNumPools: Int
+}
+
+type PoolPaginationShed {
+    poolList: [Pool]
+    totalNumPools: Int
+}
+
+type Pools {
+    poolList: [Pool]
+    totalNumPools: Int
+}
+
+type Population {
+    genre: String
+    quantity: Int
+}
+
+type Query {
+    "cuys query finds and returns all cuys"
+    cuys(
+        "filter active or inactive cuys"
+        filter: Boolean!,
+        "get n cuys per page"
+        limit: Int,
+        "skip n cuys"
+        skip: Int
+    ): Cuys
+    "getAllCuysOfPool query finds and returns all cuys in Pool"
+    getAllCuysOfPool(
+        "filter active or inactive cuys"
+        filter: Boolean!,
+        "ID of pool"
+        idPool: ID!,
+        "get n cuys per page"
+        limit: Int,
+        "skip n cuys"
+        skip: Int
+    ): CuyPaginationPool
+    "getCuyByEarring query finds and returns a cuy by its earring"
+    getCuyByEarring(
+        "earring of cuy"
+        earring: String!
+    ): Cuy
+    "getCuyByID query finds and returns cuy by its ID"
+    getCuyByID(
+        "ID of cuy"
+        idCuy: ID!
+    ): Cuy
+    "getCuysByGenre query finds and returns a list of cuys by their genre"
+    getCuysByGenre(
+        "filter active or inactive cuys"
+        filter: Boolean!,
+        "genre of cuy"
+        genre: GenreCuy!,
+        "get n cuys per page"
+        limit: Int,
+        "skip n cuys"
+        skip: Int
+    ): CuyPagination
+    "getCuysByRace query finds and returns a list of cuys by their race"
+    getCuysByRace(
+        "filter active or inactive cuys"
+        filter: Boolean!,
+        "get n cuys per page"
+        limit: Int,
+        "race of cuy"
+        race: String!,
+        "skip n cuys"
+        skip: Int
+    ): CuyPagination
+    "getDeathCuysReport query finds and returns all death cuys"
+    getDeathCuysReport(
+        "Filter cuys from date"
+        dateFrom: DateTime,
+        "Filter cuys to date"
+        dateTo: DateTime,
+        "Filter by pool"
+        idPool: ID,
+        "Filter by shed"
+        idShed: ID,
+        "Number of cuys per page"
+        limit: Int,
+        "Filter cuys by reason"
+        reason: String,
+        "Number of cuys to skip"
+        skip: Int
+    ): CuyReportPagination
+    "getMobilizationReports query to find and return mobilizations"
+    getMobilizationReports(
+        "Filter mobilizations from date"
+        dateFrom: DateTime,
+        "Filter mobilizations to date"
+        dateTo: DateTime,
+        "Filter mobilizations by ID of destination pool"
+        destination: ID,
+        "Filter mobilizations by ID of origin pool"
+        from: ID,
+        "Filter mobilizations by ID of cuy"
+        idCuy: ID,
+        "Number of mobilizations per page"
+        limit: Int,
+        "Filter mobilizations by reason"
+        reason: String,
+        "Number of mobilizations to skip"
+        skip: Int
+    ): MobilizationReportPagination
+    "getPoolByCode query to find a pool by its code"
+    getPoolByCode(
+        "code of pool"
+        code: String!
+    ): Pool
+    "getPoolByID query to find a pool by its ID"
+    getPoolByID(
+        "ID of pool"
+        idPool: ID!
+    ): Pool
+    "getPoolsByPhase query to find pools by their phase"
+    getPoolsByPhase(
+        "filter active or inactive pools"
+        filter: Boolean!,
+        "ID of shed"
+        idShed: ID!,
+        "number of pools per page"
+        limit: Int,
+        "phase to filter pools"
+        phase: String!,
+        "number of pools to skip"
+        skip: Int
+    ): PoolPagination
+    "getPoolsByShed query to find and return all pool of shed"
+    getPoolsByShed(
+        "filter active or inactive pools"
+        filter: Boolean!,
+        "ID of shed"
+        idShed: ID!,
+        "number of pools per page"
+        limit: Int,
+        "number of pools to skip"
+        skip: Int
+    ): PoolPaginationShed
+    "getPoolsByType query to find pools by their type"
+    getPoolsByType(
+        "filter active or inactive pools"
+        filter: Boolean!,
+        "ID of shed"
+        idShed: ID!,
+        "number of pools per page"
+        limit: Int,
+        "number of pools to skip"
+        skip: Int,
+        "type to filter pools"
+        type: String!
+    ): PoolPagination
+    "getSacaCuysReport query finds and returns all Saca cuys"
+    getSacaCuysReport(
+        "Filter cuys from date"
+        dateFrom: DateTime,
+        "Filter cuys to date"
+        dateTo: DateTime,
+        "Filter by pool"
+        idPool: ID,
+        "Filter by shed"
+        idShed: ID,
+        "Number of cuys per page"
+        limit: Int,
+        "Filter cuys by reason"
+        reason: String,
+        "Number of cuys to skip"
+        skip: Int
+    ): CuyReportPagination
+    "getShedByID query to find and return a shed by its ID"
+    getShedByID(
+        "ID of shed to get"
+        idShed: ID!
+    ): Shed
+    "getShedsStatistics query to get table of population"
+    getShedsStatistics: [ShedsStatistics]
+    "operationById query to find and return a operation by its ID"
+    operationById(
+        "ID of operation to get"
+        idOperation: ID!
+    ): Operation
+    "operations query to get all operations in collection"
+    operations: [Operation]
+    "pools query to find and return all pools"
+    pools(
+        "filter active or inactive pools"
+        filter: Boolean!,
+        "number of pools per page"
+        limit: Int,
+        "number of pools to skip"
+        skip: Int
+    ): Pools
+    "roleById query to find and return a role by its ID"
+    roleById(
+        "ID of role to get"
+        idRole: ID!
+    ): Role
+    "roles query to get all roles in collection"
+    roles: [Role]
+    "sheds query to find and return all sheds"
+    sheds(
+        "Filter sheds: true (active)/false (inactive)"
+        filter: Boolean!,
+        "Return n sheds"
+        limit: Int,
+        "Skip n sheds"
+        skip: Int
+    ): ShedPagination
+    "userById query to find and return a user by its ID"
+    userById(
+        "id of user"
+        id: ID!
+    ): User
+    "userInfo query to get current user of token"
+    userInfo: User
+    "users query to get all users"
+    users: [User]
+}
+
+type Role {
+    _id: ID
+    description: String
+    name: String
+    operations: [Operation]
+}
+
+type Saca {
+    certified_by: UserReports
+    created_date: DateTime
+    date: DateTime
+    reason: String
+    reference_doc: String
+    updated_date: DateTime
+    user: UserReports
+}
+
+type Shed {
+    _id: ID
+    active: Boolean
+    children_number_cuys: Int
+    code: String
+    created_date: DateTime
+    details: String
+    female_number_cuys: Int
+    male_number_cuys: Int
+    name: String
+    pools(filter: Boolean!, limit: Int, skip: Int): PoolPaginationShed
+    total_number_cuys: Int
+    updated_date: DateTime
+}
+
+type ShedPagination {
+    shedList: [Shed]
+    totalNumSheds: Int
+}
+
+type ShedsStatistics {
+    _id: ID
+    alive_cuys: Int
+    code: String
+    dead_cuys: Int
+    details: String
+    name: String
+    saca_cuys: Int
+}
+
+type User {
+    _id: ID
+    accessLifeCycle: Access
+    dni: String
+    email: String
+    firstName: String
+    lastName: String
+    names: String
+    phone: String
+    photo: String
+    roles: [Role]
+}
+
+type UserReports {
+    _id: ID
+    firstName: String
+    lastName: String
+    names: String
+}
+
+type Weight {
+    _id: ID
+    created_date: DateTime
+    photo: String
+    updated_date: DateTime
+    user: UserReports
+    weight: Float
+}
+
+enum GenreCuy {
+    CRIA
+    HEMBRA
+    MACHO
+}
+
+input AccessUpdate {
+    active: Boolean
+    inactive: Boolean
+}
+
+input CuyInput {
+    birthday_date: DateTime!
+    color: String!
+    description: String
+    earring: String!
+    genre: GenreCuy!
+    observation: String
+    pool: ID!
+    race: String!
+}
+
+input CuyUpdate {
+    birthday_date: DateTime
+    color: String
+    description: String
+    earring: String
+    genre: GenreCuy
+    observation: String
+    race: String
+}
+
+input DeathInput {
+    certified_by: ID!
+    date: DateTime!
+    reason: String!
+    reference_doc: String
+}
+
+input DeathUpdate {
+    certified_by: ID
+    date: DateTime
+    reason: String
+    reference_doc: String
+}
+
+"Input document when mobilization is added"
+input MobilizationInput {
+    "ID of cuy to be mobilized"
+    cuy: ID!
+    "Date when cuy was mobilized"
+    date: DateTime!
+    "pool ID destine of cuy"
+    destination: ID!
+    "pool ID origin of cuy"
+    origin: ID!
+    "Reason why cuy is being mobilized"
+    reason: String!
+    "Url of reference document"
+    reference_doc: String
+}
+
+"Update document when mobilization is updated"
+input MobilizationUpdate {
+    "Date when cuy was mobilized"
+    date: DateTime
+    "Reason why cuy is being mobilized"
+    reason: String
+    "Url of reference document"
+    reference_doc: String
+}
+
+input PoolInput {
+    code: String!
+    description: String
+    phase: String!
+    shed: ID!
+    type: String!
+}
+
+input PoolUpdate {
+    code: String
+    description: String
+    phase: String
+    type: String
+}
+
+input RoleInput {
+    description: String
+    name: String!
+}
+
+input RoleUpdate {
+    description: String
+    name: String
+}
+
+input SacaInput {
+    certified_by: ID!
+    date: DateTime!
+    reason: String!
+    reference_doc: String
+}
+
+input SacaUpdate {
+    certified_by: ID
+    date: DateTime
+    reason: String
+    reference_doc: String
+}
+
+input ShedInput {
+    code: String!
+    details: String
+    name: String!
+}
+
+input ShedUpdate {
+    code: String
+    details: String
+    name: String
+}
+
+input UserInput {
+    dni: String
+    email: String!
+    firstName: String!
+    lastName: String!
+    names: String!
+    password: String!
+    phone: String!
+    photo: String
+}
+
+input UserUpdate {
+    dni: String
+    email: String
+    firstName: String
+    lastName: String
+    names: String
+    phone: String
+    photo: String
+}
+
+input WeightInput {
+    photo: String!
+    weight: Float!
+}
+
+input WeightUpdate {
+    photo: String
+    weight: Float
+}
+
+
+"A DateTime representation in ISO format"
+scalar DateTime

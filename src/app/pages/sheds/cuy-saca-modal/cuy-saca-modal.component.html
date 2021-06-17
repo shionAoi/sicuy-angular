@@ -1,0 +1,90 @@
+<div class="modal-header">
+    <h5 class="modal-title">Registrar saca de cuy</h5>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss()">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <form [formGroup]="cuySacaF">
+        <div class="mb-4 row">
+            <div class="col-8">
+                <div class="mb-3 row">
+                    <div class="col-6">
+                        <label for="exampleFormControlInput2" class="col-form-label">Poza</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="shed"
+                               id="exampleFormControlInput2">
+                    </div>
+                    <div class="col-6">
+                        <label for="exampleFormControlInput3" class="col-form-label">Arete</label>
+                        <input type="text"
+                               class="form-control"
+                               formControlName="earring"
+                               id="exampleFormControlInput3">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <div class="col-12">
+                        <label for="exampleFormControlInput4" class="form-label">Certificado por: *</label>
+                        <select class="form-control form-select"
+                                formControlName="user"
+                                id="exampleFormControlInput4">
+                            <option *ngFor="let user of users" [value]="user._id">
+                                {{ user.names }} {{ user.firstName }} {{ user.lastName }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <img [src]="cuy.current_photo | srcImage" alt="image" onerror="this.src='/assets/img/default-photo.png';">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-6">
+                <label for="exampleFormControlTextarea2" class="form-label">Documento de referencia</label>
+                <input type="file"
+                       class="form-control"
+                       (change)="onFileChange($event)"
+                       formControlName="document"
+                       id="exampleFormControlTextarea2">
+            </div>
+            <div class="col-6">
+                <label for="exampleFormControlInput6" class="form-label">Fecha de saca*</label>
+                <input type="date"
+                       class="form-control"
+                       formControlName="deathDate"
+                       id="exampleFormControlInput6">
+            </div>
+        </div>
+        <div class="mb-1 row">
+            <div class="col-12">
+                <label for="exampleFormControlTextarea3" class="form-label">Razón*</label>
+                <textarea class="form-control"
+                          id="exampleFormControlTextarea3"
+                          formControlName="reason"
+                          rows="3"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button"
+            [disabled]="loading"
+            class="btn btn-default"
+            (click)="dismiss('cancel click')">Cancelar
+    </button>
+
+    <app-button-loading [textOnNormal]="'Guardar'"
+                        [textOnLoading]="'Guardando...'"
+                        [disabled]="loading || this.cuySacaF.invalid"
+                        [containerClass]="'btn btn-primary'"
+                        (buttonClick)="saveDeath()"
+                        [loading]="loading">
+    </app-button-loading>
+
+</div>

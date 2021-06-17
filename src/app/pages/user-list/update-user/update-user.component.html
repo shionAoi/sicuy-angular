@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="modal-basic-title">Editar datos de usuario del sistema</h5>
+  <button type="button" class="btn btn-icon btn-icon-material" aria-label="Cerrar" [disabled]="loading"
+    (click)="dismiss()">
+    <span aria-hidden="true" class="material-icons" style="color: red;">close</span>
+  </button>
+</div>
+<form #userForm="ngForm" (ngSubmit)="updateUser(userForm.value)">
+<div class="modal-body">
+  <input type="hidden" name="_id" [ngModel]="user._id">
+  <div class="row">
+    <div class="col-md-4 col-sm-12 form-group">
+      <label for="dni">DNI</label>
+      <input name="dni" type="text" class="form-control" placeholder="DNI" [ngModel]="user.dni">
+    </div>
+    <div class="col-md-4 col-sm-12 form-group">
+      <label for="email">Correo Electrónico</label>
+      <input name="email" type="email" class="form-control" placeholder="Correo Electrónico" [ngModel]="user.email"
+        disabled>
+    </div>
+    <div class="col-md-4 col-sm-12 form-group">
+      <label for="phone">Teléfono</label>
+      <input name="phone" type="tel" class="form-control" placeholder="Teléfono" [ngModel]="user.phone">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-sm-12 form-group">
+      <label for="names">Nombres</label>
+      <input name="names" type="text" class="form-control" placeholder="Nombres" [ngModel]="user.names">
+    </div>
+    <div class="col-md-4 col-sm-12 form-group">
+      <label for="firstName">Apellido Paterno</label>
+      <input name="firstName" type="text" class="form-control" placeholder="Apellido Paterno"
+        [ngModel]="user.firstName">
+    </div>
+    <div class="col-md-4 col-sm-12 form-group">
+      <label for="lastName">Apellido Materno</label>
+      <input name="lastName" type="text" class="form-control" placeholder="Apellido Materno" [ngModel]="user.lastName">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-neutral" (click)="close()">Cancelar</button>
+  <button type="submit" class="btn btn-primary"> Guardar Datos</button>
+
+</div>
+</form>

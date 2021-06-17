@@ -1,0 +1,70 @@
+<div class="modal-header">
+    <h5 *ngIf="shed===null" class="modal-title">Agregar Galpón</h5>
+    <h5 *ngIf="shed!==null" class="modal-title">Editar Galpón</h5>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss()">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <form [formGroup]="shedF">
+        <div class="mb-3 row">
+            <label for="exampleFormControlInput2" class="col-4 form-label">Código</label>
+            <div class="col-8">
+                <input type="text"
+                       class="form-control"
+                       id="exampleFormControlInput2"
+                       formControlName="code"
+                       placeholder="Código">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="exampleFormControlInput1" class="col-4 form-label">Nombre</label>
+            <div class="col-8">
+                <input type="text"
+                       class="form-control"
+                       id="exampleFormControlInput1"
+                       formControlName="name"
+                       placeholder="Nombre">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Detalles</label>
+            <textarea class="form-control"
+                      id="exampleFormControlTextarea1"
+                      formControlName="details"
+                      rows="3"></textarea>
+        </div>
+    </form>
+</div>
+<div class="modal-footer justify-content-between">
+    <button type="button"
+            class="btn btn-default"
+            [disabled]="loading"
+            (click)="close()">Cancelar
+    </button>
+    <button type="button"
+            [disabled]="loading || shedF.invalid"
+            class="btn btn-primary"
+            (click)="saveShed()">
+        <span *ngIf="shed">
+            <div *ngIf="loading">
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Actualizando...
+            </div>
+            <div *ngIf="!loading">
+                Actualizar
+            </div>
+        </span>
+        <span *ngIf="!shed">
+            <div *ngIf="loading">
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Agregando...
+            </div>
+            <div *ngIf="!loading">
+                Agregar
+            </div>
+        </span>
+    </button>
+</div>

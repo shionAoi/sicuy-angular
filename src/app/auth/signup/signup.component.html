@@ -1,0 +1,121 @@
+<div class="d-lg-flex half">
+    <div class="bg order-2 order-md-1"
+        style="background-image: linear-gradient(0deg, rgba(62, 49, 43, 0.5), rgba(62, 49, 43, 0.5)), url('./assets/img/Guinea-pigs.png');">
+        <div class="logo-login">
+            <img src="./assets/img/logo.svg" alt="Sicuy">
+        </div>
+        <div class="text-hero">
+            Sistema de Gestion y Crianza de Cuyes
+        </div>
+    </div>
+    <div class="contents order-1 order-md-2">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col col-md-10">
+                    <h3>Registrese,</h3>
+                    <p class="mb-4">Rellena el formulario para registrate.</p>
+                    <form class="form-horizontal form-material" id="loginform" [formGroup]="signUpForm"
+                        (ngSubmit)="signUp()">
+
+                        <div class="row first">
+                            <div class="form-group col-md-4">
+                                <label for="names">Nombres</label>
+                                <input type="text" class="form-control" formControlName="names" id="names"
+                                    placeholder="Nombres">
+                                <div class="mt-1" *ngIf="submitted && f.names.errors">
+                                    <span class="text-danger " *ngIf="f.names.errors.required">Por favor inserte su
+                                        nombre</span>
+                                    <span class="text-warning" *ngIf="f.names.errors.minlength">El nombre debe contener
+                                        por lo menos 2 letras</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="firstName">Apellido Paterno</label>
+                                <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                                    placeholder="Apellido Paterno">
+                                <div class="mt-1" *ngIf="submitted && f.firstName.errors">
+                                    <span class="text-danger " *ngIf="f.firstName.errors.required">Por favor inserte su
+                                        apellido</span>
+                                    <span class="text-warning" *ngIf="f.firstName.errors.minlength">El apellido debe
+                                        contener por lo menos 2 letras</span>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="lastName">Apellido Materno</label>
+                                <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                                    placeholder="Apellido Materno">
+                                <div class="mt-1" *ngIf="submitted && f.lastName.errors">
+                                    <span class="text-danger " *ngIf="f.lastName.errors.required">Por favor inserte su
+                                        apellido</span>
+                                    <span class="text-warning" *ngIf="f.lastName.errors.minlength">El apellido debe
+                                        contener por lo menos 2 letras</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="dni">DNI</label>
+                                <input class="form-control" type="text" formControlName="dni" placeholder="DNI"
+                                    id="dni" maxlength="8">
+                                <div class="mt-1" *ngIf="submitted && f.dni.errors">
+                                    <span class="text-danger"
+                                        *ngIf="f.dni.errors.minlength || f.dni.errors.maxlength">DNI
+                                        inválido</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="phone">Telefono</label>
+                                <input class="form-control" type="text" formControlName="phone" placeholder="Telefono"
+                                    id="phone">
+                                <div class="mt-1" *ngIf="submitted && f.phone.errors">
+                                    <span class="text-danger " *ngIf="f.phone.errors.required">Por favor inserte su
+                                        teléfono</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="form-group col-md-6">
+                                <label for="email">Email</label>
+                                <input class="form-control" type="email" formControlName="email" placeholder="Email"
+                                    id="email">
+                                <div class="mt-1" *ngIf="submitted && f.email.errors">
+                                    <span class="text-danger " *ngIf="f.email.errors.required">Por favor inserte su
+                                        email</span>
+                                    <span class="text-warning" *ngIf="f.email.errors.email">Email inválido</span>
+                                </div>
+                            </div>
+    
+                            <div class="form-group col-md-6">
+                                <label for="password">Password</label>
+                                <input class="form-control" type="password" formControlName="password"
+                                    placeholder="password" id="password">
+                                <div class="text-danger mt-1" *ngIf="submitted && f.password.errors">
+                                    <span class="text-danger " *ngIf="f.password.errors.required">Por favor inserte su
+                                        contraseña</span>
+                                    <span class="text-warning" *ngIf="f.password.errors.pattern">Su contraseña es muy debil</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <input *ngIf="!loading" type="submit" value="Registrar" class="boton btn-block"
+                            [disabled]="loading">
+                        <div class="spinner-border" *ngIf="loading" role="status"></div>
+
+                    </form>
+                    <div class="form-group mt-4">
+                        <div class="col-sm-12 text-center register">
+                            ¿Ya estas registrado? <a [routerLink]="['/','auth','login']"
+                                routerLinkActive="router-link-active" class="text-link"><b>Inicie Sesión</b></a>
+                        </div>
+                        <hr>
+                        <a href="#" class="forgot-pass">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

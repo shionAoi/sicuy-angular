@@ -1,0 +1,46 @@
+<div class="modal-header">
+    <h6 class="modal-title" id="modal-basic-title">Eliminar Poza</h6>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss()">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <div class="row">
+        <div class="col-12">
+            <p>Esta accion no puede ser <strong>revertida</strong>. Se eliminara permanentemente la poza con
+                códido {{ pool?.code }}.
+            </p>
+            <p>Por favor escriba el código <strong> {{ pool?.code }} </strong> de la poza para eliminarla</p>
+        </div>
+    </div>
+
+    <form [formGroup]="removePoolF">
+        <div class=" row">
+            <div class="col-12">
+                <input type="text" (keyup)="onKey($event)"
+                       class="form-control"
+                       id="exampleFormControlInput2"
+                       formControlName="code"
+                       placeholder="Código">
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button"
+            class="btn btn-default"
+            [disabled]="loading"
+            (click)="close()">Cancelar
+    </button>
+    <app-button-loading [loading]="loading"
+                        [disabled]="removePoolF.invalid || code!==pool?.code"
+                        [textOnNormal]="'Eliminar'"
+                        [textOnLoading]="'Eliminando...'"
+                        [containerClass]="'btn btn-danger'"
+                        (buttonClick)="removePool()">
+    </app-button-loading>
+</div>

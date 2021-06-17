@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Usuarios del Sistema</h4>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th *ngFor="let header of headers">
+                {{header}}
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>{{user.dni}}</td>
+                <td>{{user.names}} {{user.firstName}} {{user.lastName}}</td>
+                <td>{{user.email}}</td>
+                <td class="text-right">{{user.phone}}</td>
+                <td>{{!user.roles[0] ? 'Sin Rol' : user.roles[0].name}}</td>
+                <td>
+                  <button type="button" (click)="editUser(user._id)" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Editar usuario" class="btn btn-icon btn-icon-material  text-dark"><span
+                      class="material-icons" style="color:orange;">create</span>
+                  </button>
+                  <button type="button" (click)="editAccess(user._id)" title="Editar Accesos" class="btn btn-icon btn-icon-material text-dark">
+                    <span class="material-icons" style="color: green;">preview</span>
+                  </button>
+                  <button type="button" (click)="changeRole(user)" title="Designar Rol" class="btn btn-icon btn-icon-material text-dark">
+                    <span class="material-icons" style="color: blue;">attribution</span>
+                  </button>
+                  <button type="button" (click)="deleteUser(user._id)" title="Eliminar Usuario" class="btn btn-icon btn-icon-material text-dark">
+                    <span class="material-icons" style="color: red;">delete</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

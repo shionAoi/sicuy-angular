@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header" style="display: flex; justify-content: space-between;">
+        <h4 class="card-title"> Roles de Usuario</h4>
+        <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Crear nuevo rol"
+        class="btn btn-icon btn-icon-material  text-dark" (click)="addRol()">
+        <span class="material-icons" style="color:green;">add</span>
+      </button>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary">
+              <th *ngFor="let header of headers">
+                {{header}}
+              </th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rol of roles">
+                <td>{{rol.name}}</td>
+                <td>{{rol.description}}</td>
+                <td>
+                  <button type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Editar rol"
+                    class="btn btn-icon btn-icon-material  text-dark" (click)="editRole(rol)"><span class="material-icons"
+                      style="color:orange;">create</span>
+                  </button>
+                  <button type="button" title="Ver Operaciones" class="btn btn-icon btn-icon-material text-dark">
+                    <span class="material-icons" style="color: green;" (click)="watchOperations(rol)">preview</span>
+                  </button>
+                  <button type="button" title="Eliminar Rol" class="btn btn-icon btn-icon-material text-dark">
+                    <span class="material-icons" style="color: red;" (click)="deleteRol(rol._id)">delete</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

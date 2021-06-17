@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Reporte de Natalidad</h4>
+      </div>
+      <div class="card-body" style="display: flex; flex-direction: row;">
+        <select name="sheds" id="sheds" class="form-control" (change)="selectShed($event.target.value)">
+          <option value="" disabled selected>Seleccionar Galpón</option>
+          <option *ngFor="let galpon of galpones" value="{{galpon._id}}">{{galpon.name}}</option>
+        </select>
+        <select name="period" id="period" class="form-control" (change)="selectPeriod($event.target.value)">
+          <option value="" disabled selected>Seleccionar Periodo de Tiempo</option>
+          <option value="month">Mes Específico</option>
+          <option value="year">Año Específico</option>
+          <option value="allMonths">Todos los Meses</option>
+          <option value="allYears">Todos los Años</option>
+        </select>
+        <button type="button" class="btn btn-icon btn-icon-material" aria-label="Buscar Periodos de Tiempo"
+          (click)="searchPeriodsOfTime()">
+          <span aria-hidden="true" class="material-icons" style="color: green;">search</span>
+        </button>
+        <select class="form-control" *ngIf="shedByPeriod.length != 0" name="periodShed" id="periodShed" (change)="selectedPeriodOfTime($event.target.value)"> 
+          <option value="" disabled selected> Seleccionar Opción</option>
+          <option *ngFor="let p of shedByPeriod" value="{{p}}">{{p}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <canvas id="birthRateChart"></canvas>
+    </div>
+  </div>
+</div>

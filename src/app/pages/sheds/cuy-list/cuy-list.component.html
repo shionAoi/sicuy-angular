@@ -1,0 +1,168 @@
+<div class="card">
+    <div class="card-body d-flex pt-0 pb-0">
+        <div class="_title d-flex">
+            <div class="_icon">
+                <i class="material-icons">home</i>
+            </div>
+            <span>
+                <a (click)="onBackSheds()" href="javascript:void(0)">Galpones</a> >
+                <a (click)="onBackPool()" href="javascript:void(0)">{{pool !== null ? pool.code : 'Poza'}}</a>
+                > Cuyes
+            </span>
+        </div>
+        <button (click)="openModal()" class="btn btn-round btn-add ms-auto d-flex justify-content-center">
+            <i class="material-icons">add_circle_outline</i>
+            <span class="ps-2 mt-1">Agregar cuy</span>
+        </button>
+    </div>
+</div>
+
+<ul class="nav nav-tabs mb-3"
+    id="pills-tab"
+    role="tablist">
+
+    <li class="nav-item"
+        *ngIf="user!==null ? user.accessLifeCycle.active : true"
+        (click)="onChangeActive()"
+        role="presentation">
+        <a class="nav-link px-5"
+           [ngClass]="{'active': filter}"
+           id="pills-home-tab"
+           data-bs-toggle="pill"
+           href="#pills-home"
+           role="tab"
+           aria-controls="pills-home"
+           aria-selected="true">Activos</a>
+    </li>
+
+    <li class="nav-item"
+        *ngIf="user!==null ? user.accessLifeCycle.inactive : false"
+        (click)="onChangeActive()"
+        role="presentation">
+        <a class="nav-link px-5"
+           [ngClass]="{'active': !filter}"
+           id="pills-profile-tab"
+           data-bs-toggle="pill"
+           href="#pills-profile"
+           role="tab"
+           aria-controls="pills-profile"
+           aria-selected="false">Inactivos</a>
+    </li>
+
+</ul>
+
+<p *ngIf="loading" class="text-center">Cargando elementos ...</p>
+
+<pagination-controls class="text-center"
+                     [previousLabel]="'Anterior'"
+                     [nextLabel]="'Siguiente'"
+                     (pageChange)="pageChanged($event)">
+</pagination-controls>
+
+
+<div class="tab-content">
+
+    <div class="tab-pane fade active show"
+         id="pills-home"
+         role="tabpanel"
+         aria-labelledby="pills-home-tab">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="text-primary">
+                        <tr class="text-center">
+                            <th scope="col">Arete</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Foto</th>
+                            <th scope="col">Raza</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Color</th>
+                            <th scope="col">Peso Actual</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">F. de nacimiento</th>
+                            <th scope="col">Operaciones</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center">
+                        <tr *ngFor="let cuy of cuysPage.cuyList | paginate: {itemsPerPage: perPage,currentPage: page,totalItems: cuysPage.totalNumCuys};">
+                            <td>{{ cuy.earring }}</td>
+                            <td>
+                                <span *ngIf="cuy.saca===null && cuy.death===null">VIVO</span>
+                                <span *ngIf="cuy.death!==null">MUERTO</span>
+                                <span *ngIf="cuy.saca!==null">SACA</span>
+                                <span *ngIf="cuy.saca!==null && cuy.death!==null">MUERTO Y EN SACA</span>
+                            </td>
+                            <td><img [src]="cuy.current_photo | srcImage"
+                                     onerror="this.src='/assets/img/default-photo.png';"
+                                     width="70px"
+                                     height="70px"
+                                     [alt]="cuy.earring">
+                            </td>
+                            <td>{{ cuy.race }}</td>
+                            <td>{{ cuy.genre }}</td>
+                            <td>{{ cuy.color }}</td>
+                            <td>{{ cuy.current_weight }}</td>
+                            <td [title]="cuy.description">{{ cuy.description | slice:0:12 }}</td>
+                            <td>{{ cuy.birthday_date | date: 'dd/MM/yyyy' }}</td>
+                            <td class="text-right">
+                                <button type="button" title="Editar cuy"
+                                        (click)="openModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-edit ms-2">
+                                    <span class="material-icons">create</span>
+                                </button>
+                                <button *ngIf="cuy.saca===null && cuy.death===null" type="button" title="Movilizar cuy"
+                                        (click)="openMobilizeModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-movilize ms-2">
+                                    <span class="material-icons">edit_location</span>
+                                </button>
+                                <button *ngIf="cuy.saca===null && cuy.death===null" type="button"
+                                        title="Agregar peso a cuy"
+                                        (click)="openWeightModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-weight ms-2">
+                                    <span class="material-icons">
+                                        <img src="/assets/img/weight-icon.svg" alt="weight">
+                                    </span>
+                                </button>
+                                <button *ngIf="cuy.death===null" type="button" title="Registrar muerte de cuy"
+                                        (click)="openDeathModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-death ms-2">
+                                    <span class="material-icons">
+                                        <svg width="25" height="24" viewBox="0 0 25 24" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M0.241484 1.32125L1.12523 0.4375L22.0627 21.375L21.179 22.2588L17.2252 18.305L12.3752 23.155L2.42273 13.2025C1.81244 12.5939 1.32843 11.8706 0.998501 11.0743C0.668577 10.278 0.499245 9.42442 0.500234 8.5625C0.500234 6.64375 1.32398 4.9175 2.63773 3.7175L0.240234 1.32125H0.241484ZM3.30398 12.3162L12.3752 21.3863L16.3402 17.42L3.52148 4.6025C2.96363 5.10029 2.51742 5.71048 2.21214 6.39298C1.90687 7.07548 1.74946 7.81484 1.75023 8.5625C1.74927 9.25961 1.88615 9.95002 2.15302 10.594C2.41989 11.238 2.81147 11.8229 3.30523 12.315L3.30398 12.3162ZM21.4452 12.3162C21.9807 11.7807 22.3954 11.1368 22.6616 10.4278C22.9279 9.71884 23.0395 8.96113 22.9889 8.2055C22.9383 7.44987 22.7268 6.71378 22.3684 6.0466C22.0101 5.37941 21.5133 4.79655 20.9112 4.33709C20.3092 3.87764 19.6159 3.55221 18.8778 3.38263C18.1397 3.21305 17.3739 3.20324 16.6317 3.35385C15.8895 3.50446 15.1881 3.81202 14.5745 4.2559C13.9609 4.69978 13.4493 5.26972 13.074 5.9275H11.6765C11.212 5.11386 10.5405 4.43759 9.73023 3.96734C8.91992 3.49709 7.99961 3.24961 7.06273 3.25L5.84523 3.39L4.84148 2.385C5.55409 2.12926 6.30563 1.99899 7.06273 2C9.24774 2 11.1827 3.0675 12.3752 4.70875C12.9069 3.9759 13.5844 3.36099 14.3652 2.90269C15.146 2.44439 16.0132 2.15261 16.9123 2.0457C17.8113 1.93879 18.7227 2.01907 19.5893 2.28149C20.4558 2.54391 21.2586 2.98278 21.9473 3.57052C22.636 4.15826 23.1956 4.88213 23.5909 5.69663C23.9863 6.51112 24.2088 7.39861 24.2446 8.30329C24.2803 9.20796 24.1284 10.1102 23.7986 10.9534C23.4687 11.7965 22.9679 12.5623 22.3277 13.2025L18.9927 16.5375L18.1077 15.6525L21.4452 12.315V12.3162Z"
+                                                fill="white"/>
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button *ngIf="cuy.saca===null" type="button" title="Registrar saca"
+                                        (click)="openSacaModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-takeoff ms-2">
+                                    <span class="material-icons">shortcut</span>
+                                </button>
+                                <button *ngIf="cuy.saca===null && cuy.death===null" type="button"
+                                        [title]="cuy.active ? 'Desactivar cuy' : 'Activar cuy'"
+                                        (click)="openChangeStatusModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-deactivate ms-2">
+                                    <span class="material-icons">signal_cellular_no_sim</span>
+                                </button>
+                                <button type="button" title="Eliminar cuy"
+                                        *ngIf="!filter"
+                                        (click)="openRemovePoolModal(cuy)"
+                                        class="btn btn-icon btn-icon-material btn-danger ms-2">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

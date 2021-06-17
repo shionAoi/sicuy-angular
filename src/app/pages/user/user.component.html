@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-user">
+            <div class="image">
+                <img src="assets/img/damir-bosnjak.jpg" alt="...">
+            </div>
+            <div class="card-body">
+                <div class="author">
+                    <a href="#">
+                        <img class="avatar border-gray" src="assets/img/default-avatar.png" alt="foto-perfil">
+                        <h5 class="title">{{userInfo.names ? userInfo.names : ''}} {{userInfo.firstName ? userInfo.firstName : ''}} {{userInfo.lastName ? userInfo.lastName : ''}}</h5>
+                    </a>
+                    <p class="description">
+                        {{userInfo.roles ? userInfo.roles[0].description : '' }}
+                    </p>
+                    <button *ngIf="userInfo.roles && userInfo.roles[0].description == 'Admin'" class="btn btn-primary btn-round" (click)="usersList()">Gestionar Perfiles</button>
+                    <button *ngIf="userInfo.roles && userInfo.roles[0].description == 'Admin'" class="btn btn-primary btn-round" (click)="roles()">Gestionar Roles</button>
+                    <!--<button *ngIf="userInfo.roles && userInfo.roles[0].description == 'Admin'" class="btn btn-primary btn-round" (click)="operations()">Gestionar Operaciones</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Mi Perfil</h5>
+            </div>
+            <div class="card-body">
+                <form #userForm="ngForm" (ngSubmit)="actualizarPerfil(userForm.value)">
+                    <input name="_id" type="hidden" [ngModel]="userInfo._id">
+                    <div class="row">
+                        <div class="col-md-4 pr-1">
+                            <div class="form-group">
+                                <label>Nombres</label>
+                                <input name="names" type="text" class="form-control" placeholder="Nombres" [ngModel]="userInfo.names">
+                            </div>
+                        </div>
+                        <div class="col-md-4 px-1">
+                            <div class="form-group">
+                                <label>Apellido Paterno</label>
+                                <input name="firstName" type="text" class="form-control" placeholder="Apellido Paterno" [ngModel]="userInfo.firstName">
+                            </div>
+                        </div>
+                        <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                                <label>Apellido Materno</label>
+                                <input name="lastName" type="text" class="form-control" placeholder="Apellido Materno" [ngModel]="userInfo.lastName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                                <label>DNI</label>
+                                <input name="dni" type="text" class="form-control" placeholder="DNI" [ngModel]="userInfo.dni">
+                            </div>
+                        </div>
+                        <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <input name="phone" type="tel" class="form-control" placeholder="Teléfono" [ngModel]="userInfo.phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Correo Electrónico</label>
+                                <input name="email" type="email" class="form-control" placeholder="Correo Electrónico" [ngModel]="userInfo.email" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <button type="submit" class="btn btn-primary btn-round">Actualizar Perfil</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

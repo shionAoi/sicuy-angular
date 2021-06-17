@@ -1,0 +1,205 @@
+.half {
+    &,
+    & .container > .row {
+        height: 100vh;
+        background: #f8f8f8;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-bottom: 0;
+    }
+
+    p {
+        color: #b3b3b3;
+        font-weight: 300;
+    }
+
+    .bg {
+        @media (max-width: 767.98px) {
+            height: 0px;
+        }
+    }
+    .contents {
+        background: #f6f7fc;
+    }
+    .contents,
+    .bg {
+        width: 50%;
+        @media (max-width: 991.98px) {
+            width: 100%;
+        }
+        .form-control {
+            border: none;
+            box-shadow: 0 1px 2px 0 rgba($black-color, 0.1);
+            border-radius: 4px;
+            height: 54px;
+            background: $white-color;
+            &:active,
+            &:focus {
+                outline: none;
+                box-shadow: 0 1px 2px 0 rgba($black-color, 0.1);
+            }
+        }
+    }
+    .bg {
+        background-size: cover;
+        background-position: center;
+
+        // &::after {
+        //     display: block;
+        //     position: relative;
+        //     background-image: linear-gradient(0deg, rgba(62, 49, 43, 0.5), rgba(62, 49, 43, 0.5));
+        //     height: 100vh;
+        //     width: 100%;
+        //     content: "";
+        //     @media (max-width: 991.98px) {
+        //         width: 100%;
+        //     }
+        //     @media (max-width: 767.98px) {
+        //         height: 0px;
+        //     }
+        // }
+    }
+
+    a {
+        color: #888;
+        text-decoration: underline;
+    }
+    .boton {
+        border: none;
+        height: 54px;
+        padding-left: 30px;
+        padding-right: 30px;
+        background: linear-gradient(90deg, #f9881f 0%, #f9c155 100%);
+        border-radius: 50px;
+        color: $white-color;
+        animation: gradient 20s ease infinite;
+
+        &:hover {
+            background: #f9881f;
+        }
+    }
+
+    .forgot-pass {
+        text-align: right;
+        font-size: 14px;
+        color: #31c9f9;
+        text-decoration: none;
+    }
+
+    .register {
+        font-weight: 300;
+        font-size: 0.8rem;
+    }
+
+    .text-link {
+        color: #31c9f9;
+        text-decoration: none;
+        padding: 5px;
+    }
+
+    .spinner-border {
+        margin-left: 50%;
+    }
+}
+
+.text-hero {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    top: 40%;
+    left: 5%;
+    text-align: center;
+    position: absolute;
+    color: #ffff;
+    font-size: 3.2rem;
+    font-weight: 600;
+    letter-spacing: 0px;
+
+    @media screen and (min-width: 991.98px) {
+        max-width: 450px;
+        line-height: 1.15;
+    }
+
+    @media screen and (max-width: 991.98px) {
+        display: none;
+    }
+}
+
+.logo-login {
+    width: 3rem;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.control {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    .caption {
+        position: relative;
+        top: 0.2rem;
+        color: #888;
+    }
+}
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.control__indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background: #e6e6e6;
+    border-radius: 4px;
+}
+.control--radio .control__indicator {
+    border-radius: 50%;
+}
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+    background: #ccc;
+}
+.control input:checked ~ .control__indicator {
+    background: $primary-color;
+}
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+    background: lighten($primary-color, 5%);
+}
+.control input:disabled ~ .control__indicator {
+    background: #e6e6e6;
+    opacity: 0.9;
+    pointer-events: none;
+}
+.control__indicator:after {
+    content: "✓";
+    position: absolute;
+    display: none;
+    font-size: 16px;
+    transition: 0.3s all ease;
+}
+.control input:checked ~ .control__indicator:after {
+    display: block;
+    color: #fff;
+}
+.control--checkbox .control__indicator:after {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.control--checkbox input:disabled ~ .control__indicator:after {
+    border-color: #7b7b7b;
+}
+.control--checkbox input:disabled:checked ~ .control__indicator {
+    background-color: #7e0cf5;
+    opacity: 0.2;
+}

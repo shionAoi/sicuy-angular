@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-body d-flex pt-0 pb-0">
+        <div class="_title d-flex">
+            <div class="_icon">
+                <i class="material-icons">home</i>
+            </div>
+            <span>{{getTitle()}}</span>
+        </div>
+        <button (click)="openModal()" class="btn btn-round btn-add ms-auto d-flex justify-content-center">
+            <i class="material-icons">add_circle_outline</i>
+            <span class="ps-2 mt-1">Crear galpon</span>
+        </button>
+    </div>
+</div>
+
+<ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+
+    <li *ngIf="user!==null ? user.accessLifeCycle.active : true" (click)="onChangeActive()" class="nav-item" role="presentation">
+        <a class="nav-link px-5" [ngClass]="{'active': filter}" id="pills-home-tab" data-bs-toggle="pill"
+           href="#pills-home"
+           role="tab" aria-controls="pills-home" aria-selected="true">Activos</a>
+    </li>
+
+    <li *ngIf="user!==null ? user.accessLifeCycle.inactive : false" (click)="onChangeActive()" class="nav-item" role="presentation">
+        <a class="nav-link px-5" [ngClass]="{'active': !filter}" id="pills-profile-tab" data-bs-toggle="pill"
+           href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Inactivos</a>
+    </li>
+
+</ul>
+
+<p *ngIf="loading" class="text-center">Cargando elementos ...</p>
+
+<pagination-controls class="text-center" [previousLabel]="'Anterior'" [nextLabel]="'Siguiente'"
+                     (pageChange)="pageChanged($event)">
+</pagination-controls>
+
+
+<div class="tab-content">
+
+    <div class="tab-pane fade active show" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <app-sheds-grid-item
+                *ngFor="let shed of shedPage.shedList | paginate: {itemsPerPage: perPage,currentPage: page,totalItems: shedPage.totalNumSheds}"
+                [shed]="shed" (editEmitter)="editShed($event)" (removeEmitter)="removeShed($event)"
+                (changeStatusEmitter)="changeStatus($event)" (goToPoolsEmitter)="goToPools($event)">
+
+            </app-sheds-grid-item>
+        </div>
+
+    </div>
+</div>

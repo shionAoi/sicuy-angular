@@ -1,0 +1,32 @@
+<div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Editar Acceso de Usuario</h5>
+    <button type="button" class="btn btn-icon btn-icon-material" aria-label="Cerrar" [disabled]="loading"
+      (click)="dismiss()">
+      <span aria-hidden="true" class="material-icons" style="color: red;">close</span>
+    </button>
+  </div>
+  <form>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 form-group">
+        <label>Accesos</label>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" 
+            [checked]="access.active" (change)="cambiarActivo($event.target.checked)">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Activo</label>
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+            [checked]="access.inactive"  (change)="cambiarInactivo($event.target.checked)">
+          <label class="form-check-label" for="flexSwitchCheckChecked">Inactivo</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-neutral" (click)="close()">Cancelar</button>
+    <button type="submit" class="btn btn-primary" (click)="updateAccess()"> Guardar Datos</button>
+  
+  </div>
+  </form>
+  

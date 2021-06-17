@@ -1,0 +1,50 @@
+<div class="modal-header">
+    <div *ngIf="error" class="text-danger">No se pudo actualizar</div>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss('Cross click')">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <div class="row">
+        <div class="col-4">
+            <img src="/assets/img/confirm-deactivate-cuy.svg" alt="cuy">
+        </div>
+        <div class="col-8 p-2">
+            <p class="question">¿Esta seguro que desea <span style="font-weight: bold">cambiar el estado</span> del cuy?</p>
+            <p class="confirm">Por favor cambie el estado a continuación:</p>
+            <div class="form-check form-switch d-flex align-items-center fs-6">
+                <input class="form-check-input me-3"
+                       type="checkbox"
+                       [disabled]="loading"
+                       [checked]="active"
+                       (change)="change()"
+                       id="flexSwitchCheckChecked">
+
+                <label class="form-check-label" for="flexSwitchCheckChecked">
+                    Arete <strong>{{ cuy.earring }} </strong>
+                    <span [class.text-success]="active"
+                          [class.text-danger]="!active">
+            {{ active ? 'Activo' : 'Inactivo' }}
+            </span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button"
+            [disabled]="loading"
+            class="btn btn-default"
+            (click)="dismiss('cancel click')">Cancelar
+    </button>
+
+    <button type="button"
+            [disabled]="loading || cuy.active===active"
+            class="btn btn-deactivate"
+            (click)="saveStatus()">Confirmar
+    </button>
+
+</div>

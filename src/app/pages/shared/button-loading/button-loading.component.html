@@ -1,0 +1,10 @@
+<button type="button"
+        [disabled]="loading || disabled"
+        [ngClass]="containerClass"
+        (click)="buttonClick.emit()">
+    <span class="spinner-border spinner-border-sm"
+          *ngIf="loading"
+          role="status"
+          aria-hidden="true"></span>
+    {{ loading ? textOnLoading : textOnNormal }}
+</button>

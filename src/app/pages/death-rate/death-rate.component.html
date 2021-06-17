@@ -1,0 +1,136 @@
+<div class="card mb-4">
+    <div class="card-body d-flex d-flex justify-content-between pt-0 pb-0">
+        <div class="_title d-flex">
+            <div class="_icon" style="background-color: #CB573E;">
+                <img src="./assets/img/mortality-icon.svg" alt="mortality">
+            </div>
+            <span>Reporte de Mortalidad</span>
+        </div>
+        <span
+            class="mt-4 h6">Total: {{cuyPagination.totalNumCuys}} {{cuyPagination.totalNumCuys > 1 ? 'cuyes muertos' : 'cuy muerto'}}</span>
+    </div>
+</div>
+
+<div *ngIf="error!==null" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Error</strong> {{error}}
+    <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"
+            (click)="dismissAlert()">
+    </button>
+</div>
+
+<div class="input-group">
+    <input #reasonInput (input)="onCleanSearch(reasonInput.value)" placeholder="Buscar por razón de muerte"
+           type="search" id="form1" class="form-control"/>
+    <button type="button" class="btn btn-edit" (click)="onReasonSearch(reasonInput.value)">
+        <i class="material-icons">search</i>
+    </button>
+</div>
+
+<div class="row mb-3 d-flex">
+    <div class="_shed d-flex">
+        <div class="d-flex">
+            <div class="form-check px-2 align-self-center">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" (click)="applyShed()">
+            </div>
+            <select [disabled]="!applyShedFilter" class="form-select"
+                    #shedSelect
+                    (change)="onSelectShed(shedSelect.value)">
+                <option [selected]="!newState" disabled>GALPÓN</option>
+                <option *ngFor="let shed of shedOptions" [value]="shed._id">{{ shed.name }}</option>
+            </select>
+            <select [disabled]="!applyShedFilter" class="form-select" #poolSelect
+                    (change)="onSelectPool(poolSelect.value)">
+                <option [selected]="!newStatePool" disabled>POZA</option>
+                <option *ngFor="let pool of poolOptions" [value]="pool._id">{{ pool.code }}</option>
+            </select>
+        </div>
+        <div class="d-flex ps-2">
+            <span class="label-picker align-self-center">Filtrar por fecha:</span>
+            <input type="date" class="date-picker" (change)="pageChanged(currentPage)"
+                   [(ngModel)]="startDateFilter">
+            <input type="date" class="date-picker"
+                   [(ngModel)]="endDateFilter">
+        </div>
+    </div>
+</div>
+
+<div class="row mb-3">
+
+    <div class="card">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="white-head">
+                    <tr class="text-center">
+                        <th colspan="6" style="background: #FF9C06">CUY</th>
+                        <th colspan="2" style="background: #FBA82B">GALPON</th>
+                        <th colspan="2" style="background: #FBC12B">POZA</th>
+                        <th colspan="5" style="background: #FB5D2B">MUERTE</th>
+                    </tr>
+                    <tr class="text-center">
+                        <th scope="col" style="background: #C9984F">Arete</th>
+                        <th scope="col" style="background: #C9984F">Foto</th>
+                        <th scope="col" style="background: #C9984F">Raza</th>
+                        <th scope="col" style="background: #C9984F">Sexo</th>
+                        <th scope="col" style="background: #C9984F">Peso</th>
+                        <th scope="col" style="background: #C9984F">Fecha de nacimiento</th>
+                        <th scope="col" style="background: #EFB45C">Código</th>
+                        <th scope="col" style="background: #EFB45C">Nombre</th>
+                        <th scope="col" style="background: #ECC04E">Código</th>
+                        <th scope="col" style="background: #ECC04E">Fase</th>
+                        <th scope="col" style="background: #FB7F58">Fecha de muerte</th>
+                        <th scope="col" style="background: #FB7F58">Razón</th>
+                        <th scope="col" style="background: #FB7F58">Certificado por</th>
+                        <th scope="col" style="background: #FB7F58">Documento</th>
+                        <th scope="col" style="background: #FB7F58">Operaciones</th>
+                    </tr>
+                    </thead>
+                    <tbody class="text-center">
+                    <tr *ngFor="let cuy of cuyPagination?.cuyList | paginate: {itemsPerPage: pageSize,currentPage: currentPage,totalItems: cuyPagination.totalNumCuys}; let idx = index">
+                        <td>{{ cuy.earring }}</td>
+                        <td><img [src]="cuy.current_photo | srcImage"
+                                 onerror="this.src='/assets/img/default-photo.png';"
+                                 width="70px"
+                                 height="70px"
+                                 [alt]="cuy.earring">
+                        </td>
+                        <td>{{ cuy.race }}</td>
+                        <td>{{ cuy.genre }}</td>
+                        <td>{{ cuy.current_weight }}</td>
+                        <td>{{ cuy.birthday_date | date: 'dd/MM/yyyy'}}</td>
+                        <td>{{cuy.shed_code}}</td>
+                        <td>{{cuy.shed_name}}</td>
+                        <td>{{cuy.pool_code}}</td>
+                        <td>{{cuy.pool_phase}}</td>
+                        <td>{{cuy.death.date | date: 'dd/MM/yyyy'}}</td>
+                        <td [title]="cuy.death.reason">{{cuy.death.reason | slice: 0: 12}} ...</td>
+                        <td>{{cuy.death.certified_by.names | titlecase}} {{cuy.death.certified_by.firstName | titlecase}} {{cuy.death.certified_by.lastName | titlecase}}</td>
+                        <td>
+                            <button type="button" title="Ver documento de referencia"
+                                    [ngClass]="{disabled: cuy.death.reference_doc===null || cuy.death.reference_doc==='' }"
+                                    (click)="openDocument(cuy.death.reference_doc)"
+                                    class="btn btn-icon btn-icon-material btn-primary ms-2">
+                                <span class="material-icons">text_snippet</span>
+                            </button>
+                        </td>
+                        <td></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <pagination-controls class="text-center"
+                         [previousLabel]="'Anterior'"
+                         [nextLabel]="'Siguiente'"
+                         (pageChange)="pageChanged($event)">
+    </pagination-controls>
+
+</div>
+
+
+

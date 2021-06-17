@@ -1,0 +1,100 @@
+<div class="card">
+    <div class="card-body d-flex pt-0 pb-0">
+        <div class="_title d-flex">
+            <div class="_icon">
+                <i class="material-icons">home</i>
+            </div>
+            <span>{{getTitle()}}</span>
+        </div>
+        <button class="btn btn-round btn-default ms-auto d-flex justify-content-center">
+            <i class="material-icons">remove_red_eye</i>
+            <span class="ps-2">Ver detalle de existencia</span>
+        </button>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-lg-4">
+        <div class="card-style1 card" style="border: none;">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{shed1.name}}</h5>
+                <hr>
+                <div class="row">
+                    <div *ngIf="user!==null ? user.accessLifeCycle.active : true" class="col text-center">
+                        <p>{{shed1.leftTitle}}</p>
+                        <p class="fs-1 fw-bold">{{shed1.leftValue}}</p>
+                    </div>
+                    <div *ngIf="user!==null ? user.accessLifeCycle.inactive : false" class="col text-center">
+                        <p>{{shed1.rightTitle}}</p>
+                        <p class="fs-1 fw-bold">{{shed1.rightValue}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card card-style2" style="border: none;">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{shed2.name}}</h5>
+                <hr>
+                <div class="row">
+                    <div *ngIf="user!==null ? user.accessLifeCycle.active : true" class="col text-center">
+                        <p>{{shed2.leftTitle}}</p>
+                        <p class="fs-1 fw-bold">{{shed2.leftValue}}</p>
+                    </div>
+                    <div *ngIf="user!==null ? user.accessLifeCycle.inactive : false" class="col text-center">
+                        <p>{{shed2.rightTitle}}</p>
+                        <p class="fs-1 fw-bold">{{shed2.rightValue}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card card-style3" style="border: none;">
+            <div class="card-body">
+                <h5 class="card-title text-center">{{shed3.name}}</h5>
+                <hr>
+                <div class="row">
+                    <div *ngIf="user!==null ? user.accessLifeCycle.active : true" class="col text-center">
+                        <p>{{shed3.leftTitle}}</p>
+                        <p class="fs-1 fw-bold">{{shed3.leftValue}}</p>
+                    </div>
+                    <div *ngIf="user!==null ? user.accessLifeCycle.inactive : false" class="col text-center">
+                        <p>{{shed3.rightTitle}}</p>
+                        <p class="fs-1 fw-bold">{{shed3.rightValue}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Estadísticas por galpon</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header ">
+                <h5 class="card-title">Cantidad total en granja</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="paiChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

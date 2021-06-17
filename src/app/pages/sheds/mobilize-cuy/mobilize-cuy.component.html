@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <h5 class="modal-title">Movilizar cuy a otra poza</h5>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss()">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <form [formGroup]="mobilizeCuyF">
+        <h6 class="text-center">De</h6>
+        <div class="mb-3 row">
+            <div class="col-6">
+                <label for="exampleFormControlInput2" class="col-form-label">Galpón</label>
+                <input type="text"
+                       class="form-control"
+                       id="exampleFormControlInput2"
+                       formControlName="initialShed">
+
+            </div>
+            <div class="col-6">
+                <label for="exampleFormControlInput3" class="col-form-label">Poza</label>
+                <input type="text"
+                       class="form-control"
+                       id="exampleFormControlInput3"
+                       formControlName="initialPool">
+            </div>
+
+        </div>
+        <h6 class="text-center">A</h6>
+        <div class="mb-3 row">
+            <div class="col-6">
+                <label for="exampleFormControlInput4" class="form-label">Galpón*</label>
+                <select class="form-control form-select"
+                        id="exampleFormControlInput4"
+                        #shedSelect
+                        (change)="ab.value = null;onSelectShed(shedSelect.value)"
+                        formControlName="newShed">
+                    <option *ngFor="let item of activeSheds"
+                            [value]="item._id">
+                        {{ item.name }}
+                    </option>
+                </select>
+            </div>
+            <div class="col-6">
+                <label for="exampleFormControlInput5" class="form-label">Poza*</label>
+                <select class="form-control form-select"
+                        id="exampleFormControlInput5"
+                        #ab
+                        formControlName="newPool">
+                    <option *ngFor="let pool of activePools"
+                            [value]="pool._id">
+                        {{ pool.code }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <div class="col-6">
+                <label for="exampleFormControlInput6" class="form-label">Fecha de Movilización*</label>
+                <input type="date"
+                       class="form-control"
+                       id="exampleFormControlInput6"
+                       formControlName="mobilizationDate">
+            </div>
+            <div class="col-6">
+                <label for="exampleFormControlTextarea2" class="form-label">Documento de referencia*</label>
+                <input type="file"
+                       class="form-control"
+                       (change)="changeFile($event)"
+                       id="exampleFormControlTextarea2"
+                       formControlName="document"
+                       accept=".pdf, .doc, .docx">
+            </div>
+        </div>
+        <div class="mb-2 mx-1 row">
+            <label for="exampleFormControlTextarea3" class="form-label">Razón</label>
+            <textarea class="form-control"
+                      id="exampleFormControlTextarea3"
+                      formControlName="reason"
+                      rows="3"></textarea>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+
+    <button type="button"
+            class="btn btn-default"
+            [disabled]="loading"
+            (click)="close()">Cancelar
+    </button>
+
+    <app-button-loading [textOnNormal]="'Movilizar'"
+                        [textOnLoading]="'Movilizando...'"
+                        [disabled]="loading || mobilizeCuyF.invalid"
+                        [containerClass]="'btn btn-primary'"
+                        (buttonClick)="mobilizeCuy()"
+                        [loading]="loading">
+    </app-button-loading>
+</div>

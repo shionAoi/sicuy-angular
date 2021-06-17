@@ -1,0 +1,125 @@
+<div class="modal-header">
+    <h5 class="modal-title" *ngIf="!cuy">Agregar cuy</h5>
+    <h5 class="modal-title" *ngIf="cuy" id="modal-basic-title">Editar cuy</h5>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss()">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <p class="text-warning text-uppercase" *ngIf="error!==null">{{error}}</p>
+    <form [formGroup]="cuyF">
+        <div class="mb-3 row">
+            <div class="col-8">
+                <div class="mb-3 row">
+                    <div class="col-6">
+                        <label for="exampleFormControlInput2" class="col-form-label">Poza {{!cuy ? '*' : ''}} </label>
+                        <input type="text"
+                               class="form-control"
+                               id="exampleFormControlInput2"
+                               formControlName="poolCode"
+                               placeholder="poza">
+                    </div>
+                    <div class="col-6">
+                        <label for="xd" class="col-form-label">Arete {{!cuy ? '*' : ''}} </label>
+                        <input type="text"
+                               id="xd"
+                               class="form-control "
+                               formControlName="earring"
+                               placeholder="Arete">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="exampleFormControlInput1" class="form-label">Raza {{!cuy ? '*' : ''}} </label>
+                        <input type="text"
+                               class="form-control"
+                               id="exampleFormControlInput1"
+                               formControlName="race"
+                               placeholder="Raza">
+                    </div>
+
+                    <div class="col-6">
+                        <label for="exampleFormControlInput3" class="form-label">Sexo {{!cuy ? '*' : ''}} </label>
+                        <select id="exampleFormControlInput3" class="form-select form-control" formControlName="genre">
+                            <option [value]="genres.Macho">{{ genres.Macho }}</option>
+                            <option [value]="genres.Hembra">{{ genres.Hembra }}</option>
+                            <option [value]="genres.Cria">{{ genres.Cria }}</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4 text-center">
+                <img *ngIf="!cuy" width="150px" src="./assets/img/confirm-deactivate-cuy.svg" alt="cuy">
+                <img *ngIf="cuy" [src]="cuy.current_photo | srcImage" [alt]="cuy.earring" onerror="this.src='/assets/img/default-photo.png';">
+            </div>
+
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-6">
+                <label for="exampleFormControlInput4" class="form-label">Color {{!cuy ? '*' : ''}} </label>
+                <input type="text"
+                       class="form-control"
+                       id="exampleFormControlInput4"
+                       placeholder="Color"
+                       formControlName="color">
+            </div>
+            <div class="col-6">
+                <label for="exampleFormControlInput5" class="form-label">Fecha de Nacimiento {{!cuy ? '*' : ''}} </label>
+                <input type="date"
+                       class="form-control"
+                       id="exampleFormControlInput5"
+                       formControlName="birthDate">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <div class="col-6">
+                <label for="exampleFormControlTextarea1" class="form-label">Descripcion</label>
+                <textarea class="form-control"
+                          id="exampleFormControlTextarea1"
+                          formControlName="description"
+                          rows="3"></textarea>
+            </div>
+            <div class="col-6">
+                <label for="exampleFormControlTextarea2" class="form-label">Observaciones</label>
+                <textarea class="form-control"
+                          id="exampleFormControlTextarea2"
+                          formControlName="observations"
+                          rows="3"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+
+    <button type="button"
+            class="btn btn-default"
+            [disabled]="loading"
+            (click)="close()">Cancelar
+    </button>
+
+    <app-button-loading *ngIf="!cuy"
+                        [textOnNormal]="'Agregar'"
+                        [textOnLoading]="'Agregar...'"
+                        [disabled]="loading || cuyF.invalid"
+                        [containerClass]="'btn btn-primary'"
+                        (buttonClick)="saveCuy()"
+                        [loading]="loading">
+    </app-button-loading>
+
+    <app-button-loading *ngIf="cuy"
+                        [textOnNormal]="'Actualizar'"
+                        [textOnLoading]="'Actualizar...'"
+                        [disabled]="loading || cuyF.invalid"
+                        [containerClass]="'btn btn-primary'"
+                        (buttonClick)="saveCuy()"
+                        [loading]="loading">
+    </app-button-loading>
+
+</div>

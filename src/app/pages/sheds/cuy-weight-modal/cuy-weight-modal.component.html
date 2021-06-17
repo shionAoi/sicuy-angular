@@ -1,0 +1,105 @@
+<div class="modal-header">
+    <h5 class="modal-title">Agregar nuevo peso a cuy</h5>
+    <div *ngIf="error" class="text-danger">No se pudo agregar</div>
+    <button type="button" class="btn-close" aria-label="Close"
+            [disabled]="loading"
+            (click)="dismiss()">
+    </button>
+</div>
+
+<div class="modal-body" ngbAutofocus>
+    <form [formGroup]="cuyWeightF">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div *ngIf="!this.imageToUpload" class="col-12">
+                        <label class="form-label">Agregar Imagen*</label>
+                        <div class="upload-file">
+                            <img src="/assets/img/foto.png" alt="x">
+                            <input type="file"
+                                   class="image-control"
+                                   accept="image/*"
+                                   (change)="onFileChange($event)">
+                        </div>
+                    </div>
+                    <div *ngIf="this.imageToUpload" class="col-12">
+                        <div class="card">
+                            <img [src]="imageSrc" class="card-img-top" alt="image">
+                            <div class="card-body">
+                                <p class="card-text text-center">{{ this.imageToUpload.name }}</p>
+                                <p class="card-text text-center">{{ this.imageToUpload.size }}(bytes)</p>
+                            </div>
+                            <div class="card-img-overlay text-end">
+                                <button type="button"
+                                        (click)="clearFile()"
+                                        class="btn-icon-material">
+                                    <span class="material-icons mx-auto my-auto">cancel</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="button" class="btn text-center"
+                                style="background: linear-gradient(89.57deg, #1A90FD 16.15%, #4EB8DA 83.74%);">
+                            <img src="/assets/img/ai-icon.svg" alt="AI">
+                            Agregar nuevo peso por Inteligencia Artificial
+                        </button>
+                        <br>
+                        <span class="subti">(*) Primero necesita subir la imagen</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h6>Última fotografía</h6>
+                        <img [src]="cuy.current_photo | srcImage"
+                             width="200px"
+                             height="200px"
+                             alt="image"
+                             onerror="this.src='/assets/img/default-photo.png';"
+                        >
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="xd" class="col-form-label">Peso anterior(Kg)</label>
+                        <input type="text"
+                               id="xd"
+                               class="form-control"
+                               formControlName="lastWeight">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="xd1" class="col-form-label">Peso nuevo(Kg)*</label>
+                        <input type="number"
+                               id="xd1"
+                               class="form-control"
+                               formControlName="newWeight">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer justify-content-between">
+    <button type="button"
+            [disabled]="loading"
+            class="btn btn-default"
+            (click)="dismiss('cancel click')">Cancelar
+    </button>
+
+    <app-button-loading [textOnNormal]="'Guardar'"
+                        [textOnLoading]="'Guardando...'"
+                        [disabled]="loading || cuyWeightF.invalid || imageToUpload===null"
+                        [containerClass]="'btn btn-primary'"
+                        (buttonClick)="saveWeight()"
+                        [loading]="loading">
+    </app-button-loading>
+
+</div>

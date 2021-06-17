@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="modal-basic-title">{{titulo}}</h5>
+  <button type="button" class="btn btn-icon btn-icon-material" aria-label="Cerrar" [disabled]="loading"
+    (click)="dismiss()">
+    <span aria-hidden="true" class="material-icons" style="color: red;">close</span>
+  </button>
+</div>
+<form #rolForm="ngForm" (ngSubmit)="saveRol(rolForm.value)">
+  <div class="modal-body">
+    <input type="hidden" name="_id" [ngModel]="rol._id">
+    <div class="row">
+      <div class="col-md-6 col-sm-12 form-group">
+        <label for="name">Nombre</label>
+        <input name="name" type="text" class="form-control" placeholder="Nombre" [ngModel]="rol.name">
+      </div>
+      <div class="col-md-6 col-sm-12 form-group">
+        <label for="description">Descripción</label>
+        <input name="description" type="text" class="form-control" placeholder="Descripción" [ngModel]="rol.description">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-neutral" (click)="close()">Cancelar</button>
+      <button type="submit" class="btn btn-primary"> Guardar Datos</button>
+    </div>
+  </div>
+</form>

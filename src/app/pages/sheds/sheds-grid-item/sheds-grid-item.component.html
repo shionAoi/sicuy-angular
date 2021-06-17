@@ -1,0 +1,62 @@
+<div class="col">
+    <div class="card h-100">
+        <div class="card-header d-flex align-items-center">
+            <i class="material-icons me-1">house_siding</i>
+            <strong class="me-auto">{{ shed?.name || 'Untitled' }}</strong>
+            <small class="text-muted fw-normal">{{ shed?.code }}</small>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-4 text-center">
+                    <div class="male">
+                        <p class="fw-bold mb-0 pt-3">Machos</p>
+                        <p class="fs-5 m-0">{{ shed?.male_number_cuys || 0 }}</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 text-center">
+                    <div class="female">
+                        <p class="fw-bold mb-0 pt-3">Hembras</p>
+                        <p class="fs-5 m-0">{{ shed?.female_number_cuys || 0 }}</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 text-center">
+                    <div class="child">
+                        <p class="fw-bold mb-0 pt-3">Crias</p>
+                        <p class="fs-5 m-0">{{ shed?.children_number_cuys || 0 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-end">
+            <p class="footer-information">
+                Cantidad de cuyes:
+                <strong class="fs-5 p-2">
+                    {{ shed?.total_number_cuys || 0}}
+                </strong>
+                Cantidad de pozas:
+                <strong class="fs-5 p-2">
+                    {{shed?.pools.totalNumPools || 0}}
+                </strong>
+            </p>
+
+            <button type="button" (click)="goToPools()" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Ver pozas" class="btn btn-icon btn-icon-material btn-info ms-2">
+                <span class="material-icons">visibility</span>
+            </button>
+            <button type="button" (click)="editShed()" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Editar galpon" class="btn btn-icon btn-icon-material btn-edit ms-2">
+                <span class="material-icons">create</span>
+            </button>
+            <button type="button" (click)="changeShedStatus()" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Activar/Inactivar" class="btn btn-icon btn-icon-material btn-deactivate ms-2">
+                <span class="material-icons">signal_cellular_no_sim</span>
+            </button>
+            <button type="button" *ngIf="!shed.active" (click)="removeShed()" data-bs-toggle="tooltip"
+                    data-bs-placement="top" title="" class="btn btn-icon btn-icon-material btn-danger ml-1 ms-2">
+                <span class="material-icons">delete</span>
+            </button>
+        </div>
+    </div>
+</div>

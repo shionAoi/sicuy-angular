@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="modal-basic-title">Asignar Rol a Usuario</h5>
+  <button type="button" class="btn btn-icon btn-icon-material" aria-label="Cerrar" [disabled]="loading"
+    (click)="dismiss()">
+    <span aria-hidden="true" class="material-icons" style="color: red;">close</span>
+  </button>
+</div>
+<form #rolForm="ngForm" (ngSubmit)="assignRol()">
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6 col-sm-12 form-group">
+        <select name="rol" id="rol" class="form-select" aria-label="Roles de Usuario" [(ngModel)]="seleccionado">
+          <option [selected]="!userRol" value="undefined">Sin Rol</option>
+          <option *ngFor="let rol of roles" value="{{rol._id}}" [selected]="userRol && userRol._id == rol._id">{{rol.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-neutral" (click)="close()">Cancelar</button>
+      <button type="submit" class="btn btn-primary"> Asignar Rol</button>
+    </div>
+  </div>
+</form>
