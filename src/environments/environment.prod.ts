@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
-    API_ENDPOINT: 'https://project-cuys01.herokuapp.com/graphql',  // <-- add the URL of the GraphQL server here
-    FILE_ENDPOINT: 'https://project-cuys01.herokuapp.com/storage/upload-file',
-    PHOTO_ENDPOINT: 'https://project-cuys01.herokuapp.com/storage/upload-photo',
-    API_ENDPOINT_ROOT: 'https://project-cuys01.herokuapp.com'
+    API_ENDPOINT: 'http://localhost:4041/graphql',  // <-- add the URL of the GraphQL server here
+    API_ENDPOINT_ROOT: 'http://localhost:4041',
+    FILE_ENDPOINT: 'http://localhost:4041/storage/upload-file',
+    PHOTO_ENDPOINT: 'http://localhost:4041/storage/upload-photo'
 };
